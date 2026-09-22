@@ -128,6 +128,28 @@ function Jobs() {
         setMessage('')
     }
 
+    const handleDelete = async (jobId) => {
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this job?'
+        )
+
+        if (!confirmed) return
+
+        const { error } = await supabase
+            .from('jobs')
+            .delete()
+            .eq('id', jobId)
+
+        if (error) {
+            setMessage(error.message)
+            return
+        }
+
+        setMessage('Job berjaya dipadam.')
+
+        await fetchJobs()
+    }
+
     return (
         <div className="min-h-screen bg-slate-100">
             <header className="border-b bg-white">
@@ -363,6 +385,13 @@ function Jobs() {
                                                 className="rounded-lg border border-slate-300 px-3 py-1 text-sm font-medium text-slate-700 hover:bg-slate-50"
                                             >
                                                 Edit
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDelete(job.id)}
+                                                className="rounded-lg border border-red-300 px-3 py-1 text-sm font-medium text-red-600 hover:bg-red-50"
+                                            >
+                                                Delete
                                             </button>
                                         </div>
                                     </div>

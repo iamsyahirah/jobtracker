@@ -63,18 +63,45 @@ function Dashboard() {
             {/* Header */}
             <header className="border-b bg-white">
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-                    <div>
+
+                    <div className="flex items-center gap-8">
                         <h1 className="text-xl font-bold text-slate-900">
                             JobTrack
                         </h1>
+
+                        <nav className="hidden items-center gap-5 md:flex">
+                            <button
+                                onClick={() => navigate('/dashboard')}
+                                className="text-sm font-medium text-slate-900"
+                            >
+                                Dashboard
+                            </button>
+
+                            <button
+                                onClick={() => navigate('/jobs')}
+                                className="text-sm font-medium text-slate-600 hover:text-slate-900"
+                            >
+                                Jobs
+                            </button>
+                        </nav>
                     </div>
 
-                    <button
-                        onClick={handleLogout}
-                        className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-                    >
-                        Logout
-                    </button>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => navigate('/jobs')}
+                            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
+                        >
+                            Add Job
+                        </button>
+
+                        <button
+                            onClick={handleLogout}
+                            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                        >
+                            Logout
+                        </button>
+                    </div>
+
                 </div>
             </header>
 

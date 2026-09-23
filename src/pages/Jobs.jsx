@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 
 function Jobs() {
     const { user } = useAuth()
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut()
+        navigate('/login')
+    }
 
     const [jobs, setJobs] = useState([])
     const [loading, setLoading] = useState(false)
@@ -153,10 +160,40 @@ function Jobs() {
     return (
         <div className="min-h-screen bg-slate-100">
             <header className="border-b bg-white">
-                <div className="max-w-6xl mx-auto px-6 py-4">
-                    <h1 className="text-xl font-bold text-slate-900">
-                        JobTrack
-                    </h1>
+                <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+
+                    <div className="flex items-center gap-8">
+                        <h1 className="text-xl font-bold text-slate-900">
+                            JobTrack
+                        </h1>
+
+                        <nav className="hidden items-center gap-5 md:flex">
+                            <button
+                                type="button"
+                                onClick={() => navigate('/dashboard')}
+                                className="text-sm font-medium text-slate-600 hover:text-slate-900"
+                            >
+                                Dashboard
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => navigate('/jobs')}
+                                className="text-sm font-medium text-slate-900"
+                            >
+                                Jobs
+                            </button>
+                        </nav>
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                    >
+                        Logout
+                    </button>
+
                 </div>
             </header>
 
